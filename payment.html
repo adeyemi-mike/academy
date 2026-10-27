@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071a35">
+<title>Payment status | PillarsConnect</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.payment-result{max-width:680px;margin:10vh auto;padding:clamp(24px,5vw,48px);background:#fff;border:1px solid #dce5f0;border-radius:20px;box-shadow:0 18px 48px rgba(7,26,53,.08)}
+.payment-result h1{font-size:clamp(2rem,5vw,3rem)}.payment-result p{line-height:1.7}.ref{overflow-wrap:anywhere;font-weight:700}.status-mark{font-size:2rem;color:#13795b}
+</style>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="/" aria-label="PillarsConnect home"><span class="brand-name">PillarsConnect<span> Ltd</span></span></a></header>
+<main>
+<section class="payment-result" aria-live="polite">
+  <p class="eyebrow dark-eyebrow">PAYMENT STATUS</p>
+  <h1 id="title">Checking your payment…</h1>
+  <p id="message">Please keep this page open while we verify the transaction with Paystack.</p>
+  <p id="reference" class="ref"></p>
+  <a class="button button-primary" href="/">Return to PillarsConnect</a>
+</section>
+</main>
+<script>
+(async function(){
+  const title=document.getElementById('title');
+  const message=document.getElementById('message');
+  const refNode=document.getElementById('reference');
+  const reference=new URLSearchParams(location.search).get('reference');
+  if(!reference){
+    title.textContent='No payment reference found';
+    message.textContent='If you completed payment, contact PillarsConnect with your Paystack receipt.';
+    return;
+  }
+  refNode.textContent='Reference: '+reference;
+  try {
+    const response=await fetch('/api/paystack/verify?reference='+encodeURIComponent(reference),{cache:'no-store'});
+    const result=await response.json();
+    if(result.status==='success'){
+      title.textContent='Payment verified';
+      message.textContent=result.message+' Keep your payment reference for your records.';
+    } else if(result.status==='verified_recording_pending'){
+      title.textContent='Payment verified; record pending';
+      message.textContent=result.message;
+    } else {
+      title.textContent='Payment not confirmed';
+      message.textContent=result.message||'The payment could not be confirmed. If you were charged, contact PillarsConnect with your reference.';
+    }
+  } catch(error) {
+    title.textContent='Unable to check payment';
+    message.textContent='Please refresh this page in a moment. If you were charged, keep your reference and contact PillarsConnect.';
+  }
+})();
+</script>
+</body>
+</html>
