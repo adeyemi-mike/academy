@@ -41,17 +41,17 @@ module.exports = async function handler(req, res) {
       headers: { Authorization: \`Bearer \${secretKey}\`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email,
-        amount: 1000000,
+        amount: 500000,
         currency: 'NGN',
         callback_url: \`\${origin.origin}/payment.html\`,
         metadata: {
-          purpose: 'scholarship_certificate_registration_fee',
+          purpose: 'full_scholarship_with_certificate',
           payer_name: name,
           course_normal_price_ngn: 300000,
           scholarship: 'PillarsConnect Cisco Networking Academy Cybersecurity Scholarship',
           custom_fields: [
             { display_name: 'Payer name', variable_name: 'payer_name', value: name },
-            { display_name: 'Payment purpose', variable_name: 'payment_purpose', value: 'Cybersecurity scholarship certificate/registration fee' }
+            { display_name: 'Payment purpose', variable_name: 'payment_purpose', value: 'Full cybersecurity scholarship with certificate' }
           ]
         }
       }),
