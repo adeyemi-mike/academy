@@ -50,7 +50,7 @@ module.exports = async function handler(req, res) {
 
     const webhook = process.env.MAKE_PAYMENT_WEBHOOK_URL;
     if (!webhook) {
-      return send(res, 200, { status: 'verified_recording_pending', message: 'Paystack confirms your ₦10,000 payment. The payment has not yet been recorded in the registration tracker. Keep your reference and contact PillarsConnect.' });
+      return send(res, 200, { status: 'verified_recording_pending', message: 'Paystack confirms your ₦5,000 payment. The payment has not yet been recorded in the registration tracker. Keep your reference and contact PillarsConnect.' });
     }
 
     let webhookUrl;
