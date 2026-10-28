@@ -27,11 +27,11 @@ module.exports = async function handler(req, res) {
     const txn = result?.data;
     const metadata = txn?.metadata || {};
     const valid = verifyResponse.ok && result.status === true && txn?.status === 'success' &&
-      Number(txn.amount) === 1000000 && txn.currency === 'NGN' &&
-      metadata.purpose === 'scholarship_certificate_registration_fee' &&
+      Number(txn.amount) === 500000 && txn.currency === 'NGN' &&
+      metadata.purpose === 'full_scholarship_with_certificate' &&
       String(txn.reference) === reference;
 
-    if (!valid) return send(res, 200, { status: 'not_confirmed', message: 'Paystack has not confirmed a successful payment of the exact ₦10,000 certificate/registration fee for this scholarship.' });
+    if (!valid) return send(res, 200, { status: 'not_confirmed', message: 'Paystack has not confirmed a successful payment of the exact ₦5,000 full scholarship fee for this scholarship.' });
 
     const paymentEvent = {
       eventId: reference,
@@ -72,7 +72,7 @@ module.exports = async function handler(req, res) {
       return send(res, 200, { status: 'verified_recording_pending', message: 'Paystack confirms your payment, but the registration tracker could not be updated. Keep your reference and contact PillarsConnect.' });
     }
 
-    return send(res, 200, { status: 'success', message: 'Your ₦10,000 payment has been verified and sent to the registration tracking workflow.' });
+    return send(res, 200, { status: 'success', message: 'Your ₦5,000 payment has been verified and sent to the registration tracking workflow.' });
   } catch {
     return send(res, 502, { status: 'error', message: 'We could not check the payment with Paystack. If you were charged, keep your reference and contact PillarsConnect.' });
   }
