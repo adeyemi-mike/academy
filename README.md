@@ -6,7 +6,7 @@ Responsive scholarship landing page for the PillarsConnect Ltd × Cisco Networki
 
 - Final scholarship round before the course returns to its regular price of **₦300,000**.
 - Scholarship covers eligible course tuition.
-- Compulsory certificate/registration fee: **₦10,000**, paid separately by the participant.
+- Full scholarship including certificate: **₦5,000 total**.
 - Applicants should pay only after PillarsConnect instructs them to proceed with registration.
 - OPay transfers stay pending until a person at PillarsConnect independently verifies receipt of the funds.
 
@@ -14,13 +14,13 @@ Responsive scholarship landing page for the PillarsConnect Ltd × Cisco Networki
 
 Deploy this repository to Vercel so the `api/` serverless functions run. Set `SITE_URL`, `PAYSTACK_SECRET_KEY`, `MAKE_REGISTRATION_WEBHOOK_URL`, and `MAKE_PAYMENT_WEBHOOK_URL` in Vercel Project Settings → Environment Variables. Use Paystack test keys first; do not commit secrets to GitHub.
 
-The browser must never mark a Paystack payment as paid on its own: the server verifies the reference, successful status, exact ₦10,000 amount, NGN currency, and payment purpose with Paystack. Configure the Make payment scenario to deduplicate events using `paymentReference` / `eventId`.
+The browser must never mark a Paystack payment as paid on its own: the server verifies the reference, successful status, exact ₦5,000 amount, NGN currency, and payment purpose with Paystack. Configure the Make payment scenario to deduplicate events using `paymentReference` / `eventId`.
 
 ## OPay transfer
 
 - Account number: `7064846659`
 - Account name: `Timilehin Adeyemi`
-- Amount: `₦10,000`
+- Amount: `₦5,000`
 - Receipt submission: https://wa.me/2347064846659
 
 A WhatsApp receipt is not proof that a transfer has cleared. Keep manual transfers pending until they are independently confirmed.
